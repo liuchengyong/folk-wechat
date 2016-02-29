@@ -2,6 +2,7 @@
  * Created by luowei on 2/29/16.
  */
 module.exports = {
-  'WECHATOKEN' : '-wechat-token',
-  'CACHETIME': 60*100
+  "wechatTokenKey" : '-wechat-token',
+  "wechatTicketKey": '-wechat-ticket',
+  "expiredTime": 60*100
 };

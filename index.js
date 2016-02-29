@@ -1,17 +1,20 @@
-var API = require('wechat-api');
-var redis = require('./utils/redisClient');
-var wechatAccess = require('./config').weixin_access;
-var CONST = require('./constants');
+var express = require('express');
+var wechatAPI = require('./utils/wechatAPI');
+var app = express();
 
-var api = new API(wechatAccess.appid, wechatAccess.secret, function(callback) {
-  redis.get(CONST.WECHATOKEN, function(err, reply) {
-    callback(null, JSON.parse(reply));
+app.get('/weixin/signature', function (req, res) {
+  wechatAPI.getLatestToken(function(err, res) {
+    console.log(res);
   });
-}, function(token, callback) {
-  redis.setex(CONST.WECHATOKEN, 60 * 100, JSON.stringify(token), callback);
+  wechatAPI.getLatestTicket(function(err, res) {
+    console.log(res);
+  });
+  wechatAPI.getTicket(function(err, res) {
+    console.log(res);
+  });
+  res.send('Hello World!');
 });
 
-
-api.getLatestToken(function(err, token) {
-  console.log(token.accessToken);
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!');
 });
