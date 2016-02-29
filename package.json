@@ -11,5 +11,9 @@
     "url": "git@123.57.152.76:frontendteam/folk-wechat.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "wechat": "^2.0.3",
+    "wechat-oauth": "^1.1.1"
+  }
 }
