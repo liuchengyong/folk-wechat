@@ -2,6 +2,7 @@
  * Created by luowei on 2/29/16.
  */
 'use strict';
+var sha1 = require('sha1');
 
 exports.createNonceStr = () => Math.random().toString(36).substr(2, 15);
 
@@ -13,3 +14,5 @@ exports.contactString = (args) => {
     .map((key) => `${key.toLowerCase()}=${args[key]}`)
     .join('&');
 };
+
+exports.signature = (msg) => sha1(msg);

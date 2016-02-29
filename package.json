@@ -14,8 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
-    "jssha": "^2.0.2",
     "redis": "^2.4.2",
+    "sha1": "^1.1.1",
     "wechat-api": "^1.25.0",
     "wechat-oauth": "^1.1.1"
   }
