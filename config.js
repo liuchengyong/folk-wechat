@@ -11,7 +11,8 @@ var config = {
       host: '127.0.0.1',
       port: 6379,
       db: 0,
-      prefix: 'folkh5'        },
+      prefix: 'folk'
+    },
     session_secret: 'folkh5_f%95te*uw*r3cr5k59rmplz4d1(t*oe$u@#ct1!ytnt5133e_o', // 务必修改
     auth_cookie_name: 'slarkh5_',
     qiniu: {
@@ -71,7 +72,6 @@ var config = {
       port: 6379,
       db: 0,
       prefix: 'folkh5'
-
     },
     session_secret: 'folkh5_f%95te*uw*r3cr5k59rmplz4d1(t*oe$u@#ct1!ytnt5133e_o', // 务必修改
     auth_cookie_name: 'folkh5_',
