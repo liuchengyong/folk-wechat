@@ -2,14 +2,14 @@ var express = require('express');
 var wechatAPI = require('./utils/wechatAPI');
 var app = express();
 
-app.get('/weixin/signature', function (req, res) {
-  wechatAPI.getLatestToken(function(err, res) {
+app.get('/weixin/signature', (req, res) => {
+  wechatAPI.getLatestToken((err, res) => {
     console.log(res);
   });
-  wechatAPI.getLatestTicket(function(err, res) {
+  wechatAPI.getLatestTicket((err, res) => {
     console.log(res);
   });
-  wechatAPI.getTicket(function(err, res) {
+  wechatAPI.getTicket((err, res) => {
     console.log(res);
   });
   res.send('Hello World!');
