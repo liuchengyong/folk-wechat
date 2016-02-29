@@ -2,10 +2,11 @@
  * Created by luowei on 2/29/16.
  */
 'use strict';
-var API = require('wechat-api');
-var wechatAccess = require('../config').weixin_access;
-var CONST = require('../constants');
-var redis = require('./redisClient');
+let API = require('wechat-api'),
+    wechatSignature = require('../utils/wechatSignature'),
+    wechatAccess = require('../config').weixin_access,
+    CONST = require('../constants'),
+    redis = require('./redisClient');
 
 let getToken = (callback) => {
   redis.get(CONST.wechatTokenKey, (err, reply) => {
@@ -36,4 +37,4 @@ var api = new API(wechatAccess.appid, wechatAccess.secret, getToken, saveToken);
 
 api.registerTicketHandle(getTicketToken, saveTicketToken);
 
-module.exports = api;
+module.exports = Object.assign(api, wechatSignature);

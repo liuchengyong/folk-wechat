@@ -1,11 +1,12 @@
 /**
  * Created by luowei on 2/29/16.
  */
-var redis = require('redis');
-var redisConfig = require('../config').redis;
-var redisClient = redis.createClient(redisConfig.port, redisConfig.host, {prefix: redisConfig.prefix});
+'use strict';
+const redis = require('redis');
+let redisConfig = require('../config').redis;
+let redisClient = redis.createClient(redisConfig.port, redisConfig.host, {prefix: redisConfig.prefix});
 
-redisClient.on('error',  (err) => {
+redisClient.on('error', (err) => {
   console.log("Error " + err);
 });
 
