@@ -10,14 +10,14 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/weixin/signature', (req, res) => {
+app.get('/weixin/config', (req, res) => {
   wechatAPI.getLatestTicket((err, reply) => {
     if (err) {
       res.statusCode(500).end(err);
     } else {
       let config = wechatAPI.signature({
-        ticket: reply.ticket,
-        url: 'http://localhost:8000/coupon'
+        jsapi_ticket: reply.ticket,
+        url: 'http://wetest.zhid58.com/coupon'
       });
       res.json(config);
     }

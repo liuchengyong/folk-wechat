@@ -2,7 +2,9 @@
  * Created by luowei on 2/29/16.
  */
 'use strict';
-const wechatAccess = require('../config').wechatAccess;
+const config = require('../config');
+const wechatAccess = config.wechatAccess;
+const jsApiList = config.jsApiList;
 const sha1 = require('sha1');
 
 const createNonceStr = () => Math.random().toString(36).substr(2, 15);
@@ -21,11 +23,15 @@ exports.signature = (signObj) => {
     nonceStr: createNonceStr(),
     timestamp: createTimeStamp()
   });
+
   Object.assign(signObj, {
     signature: sha1(contactString(signObj)),
     appId: wechatAccess.appid,
-    debug: wechatAccess.debug
+    debug: wechatAccess.debug,
+    jsApiList: jsApiList,
+    timestamp: Number(signObj.timestamp)
   });
-  delete signObj.ticket;
+  delete signObj.jsapi_ticket;
+  delete signObj.url;
   return signObj;
 };
