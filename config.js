@@ -20,7 +20,8 @@ let baseConfig = {
     wechatTokenKey: '-wechat-token',
     wechatTicketKey: '-wechat-ticket',
     expiredTime: 60 * 100
-  }
+  },
+  couponUrl: 'http://wetest.zhid58.com/coupon'
 };
 
 let config = {

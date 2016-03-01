@@ -12,23 +12,38 @@ app.use(function(req, res, next) {
 });
 
 app.get('/weixin/config', (req, res) => {
-  wechatAPI.getLatestTicket((err, reply) => {
-    if (err) {
-      res.statusCode(500).end(err);
-    } else {
-      let config = wechatAPI.signature({
-        jsapi_ticket: reply.ticket,
-        url: 'http://wetest.zhid58.com/coupon'
-      });
-      res.json(config);
-    }
-  });
+  if (req.query.code) {
+    oauthAPI.getAccessToken(req.query.code, function(err, accessToken) {
+      if (err) {
+        console.log(err);
+        res.status(400).end('invalid code');
+      } else {
+        oauthAPI.getUser(accessToken.data.openid, function(err, userInfo) {
+          if (err) {
+            console.log(err);
+            res.status(400).end('invalid openid');
+          } else {
+            wechatAPI.getLatestTicket((err, reply) => {
+              if (err) {
+                res.status(500).end('get ticket error');
+              } else {
+                let sdkConfig = wechatAPI.signature({
+                  jsapi_ticket: reply.ticket,
+                  url: req.headers.referer
+                });
+                res.json(sdkConfig);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
 });
 
 app.get('/weixin/oauth', (req, res) => {
-  res.redirect(oauthAPI.getAuthorizeURL('http://wetest.zhid58.com/', '1', 'snsapi_userinfo'))
+  res.redirect(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
 });
-
 
 app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port} !`);
