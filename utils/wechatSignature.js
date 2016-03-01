@@ -21,9 +21,10 @@ exports.signature = (signObj) => {
     nonceStr: createNonceStr(),
     timestamp: createTimeStamp()
   });
-   Object.assign(signObj, {
+  Object.assign(signObj, {
     signature: sha1(contactString(signObj)),
-    appId: wechatAccess.appId
+    appId: wechatAccess.appid,
+    debug: wechatAccess.debug
   });
   delete signObj.ticket;
   return signObj;
