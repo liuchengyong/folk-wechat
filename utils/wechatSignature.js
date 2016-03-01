@@ -31,6 +31,7 @@ exports.signature = (signObj) => {
     jsApiList: jsApiList,
     timestamp: Number(signObj.timestamp)
   });
+
   delete signObj.jsapi_ticket;
   delete signObj.url;
   return signObj;

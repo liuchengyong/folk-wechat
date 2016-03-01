@@ -3,15 +3,22 @@
  */
 'use strict';
 const redis = require('redis');
-let redisConfig = require('../config').redis;
-let redisClient = redis.createClient(redisConfig.port, redisConfig.host, {prefix: redisConfig.prefix});
+const redisConfig = require('../config').redis;
 
-redisClient.on('error', (err) => {
-  console.log("Error " + err);
-});
+let redisClient;
+let createRedisServer = (redis, redisConfig) => {
+  if (!redisClient) {
+    redisClient = redis.createClient(redisConfig.port, redisConfig.host, {prefix: redisConfig.prefix});
 
-redisClient.on('ready', () => {
-  console.log('redis is ready!');
-});
+    redisClient.on('error', (err) => {
+      console.log("Error " + err);
+    });
 
-module.exports = redisClient;
+    redisClient.on('ready', () => {
+      console.log('redis is ready!');
+    });
+  }
+  return redisClient;
+};
+
+module.exports = createRedisServer(redis, redisConfig);

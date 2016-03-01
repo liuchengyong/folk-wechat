@@ -1,8 +1,9 @@
 'use strict';
 const express = require('express');
 const config = require('./config');
-var wechatAPI = require('./utils/wechatAPI');
-var app = express();
+let wechatAPI = require('./utils/wechatAPI');
+let oauthAPI = require('./utils/oauthAPI');
+let app = express();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -23,6 +24,11 @@ app.get('/weixin/config', (req, res) => {
     }
   });
 });
+
+app.get('/weixin/oauth', (req, res) => {
+  res.redirect(oauthAPI.getAuthorizeURL('http://wetest.zhid58.com/', '1', 'snsapi_userinfo'))
+});
+
 
 app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port} !`);
