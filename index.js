@@ -10,31 +10,25 @@ let wechatAPI = require('./utils/wechatAPI');
 let oauthAPI = require('./utils/oauthAPI');
 let app = express();
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
 app.use(session({
-  secret: config.sessionSecret,
-  store: new RedisStore({
-    client: redis,
-    ttl: 7 * 24 * 60 * 60
-  }),
-  resave: true,
-  saveUninitialized: true,
-  cookie: {maxAge: 60000}
-}));
+    secret: config.sessionSecret,
+    store: new RedisStore({
+      client: redis,
+      ttl: 7 * 24 * 60 * 60
+    }),
+    resave: true,
+    saveUninitialized: false,
+    name: 'folk.id'
+  }
+));
 
-app.get('/wechat/config', (req, res) => {
-  console.log(req.session);
+app.get('/api/wechat/config', (req, res) => {
   if (req.query.code) {
     oauthAPI.getAccessToken(req.query.code, function(err, accessToken) {
       if (err) {
         res.status(400).end('invalid code');
       } else {
-        req.session.user = accessToken;
+        req.session.user = accessToken.data;
         wechatAPI.getLatestTicket((err, reply) => {
           if (err) {
             res.status(500).end('get ticket error');
@@ -66,7 +60,7 @@ app.get('/wechat/config', (req, res) => {
   }
 });
 
-app.get('/wechat/oauth', (req, res) => {
+app.get('/api/wechat/oauth', (req, res) => {
   res.redirect(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
 });
 
