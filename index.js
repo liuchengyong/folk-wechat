@@ -1,8 +1,11 @@
 'use strict';
 const express = require('express');
 const request = require('request');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const config = require('./config');
 const helper = require('./utils/helper');
+const redis = require('./utils/redisClient');
 let wechatAPI = require('./utils/wechatAPI');
 let oauthAPI = require('./utils/oauthAPI');
 let app = express();
@@ -13,12 +16,25 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(session({
+  secret: config.sessionSecret,
+  store: new RedisStore({
+    client: redis,
+    ttl: 7 * 24 * 60 * 60
+  }),
+  resave: true,
+  saveUninitialized: true,
+  cookie: {maxAge: 60000}
+}));
+
 app.get('/wechat/config', (req, res) => {
+  console.log(req.session);
   if (req.query.code) {
     oauthAPI.getAccessToken(req.query.code, function(err, accessToken) {
       if (err) {
         res.status(400).end('invalid code');
       } else {
+        req.session.user = accessToken;
         wechatAPI.getLatestTicket((err, reply) => {
           if (err) {
             res.status(500).end('get ticket error');
@@ -29,7 +45,9 @@ app.get('/wechat/config', (req, res) => {
             });
             request(helper.createCouponUrl(accessToken, req.query.pid), (err, response, body) => {
               if (response.statusCode == '200') {
-                res.json({sdkConfig: sdkConfig, coupon: JSON.parse(body)});
+                res
+                  .header({vary: 'Accept'})
+                  .json({sdkConfig: sdkConfig, coupon: JSON.parse(body)});
               } else {
                 res.status(500).end('cannot get info of coupon');
               }

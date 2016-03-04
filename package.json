@@ -14,7 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connect-redis": "^3.0.2",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "redis": "^2.4.2",
     "request": "^2.69.0",
     "sha1": "^1.1.1",

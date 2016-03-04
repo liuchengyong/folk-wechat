@@ -17,8 +17,8 @@ let baseConfig = {
   jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
   sessionSecret: 'folkh5_f%95te*uw*r3cr5k59rmplz4d1(t*oe$u@#ct1!ytnt5133e_o',
   redisSetting: {
-    wechatTokenKey: '-wechat-token',
-    wechatTicketKey: '-wechat-ticket',
+    wechatTokenKey: 'wechat-token',
+    wechatTicketKey: 'wechat-ticket',
     expiredTime: 60 * 100
   },
   couponUrl: 'http://wetest.zhid58.com/coupon?pid=09E572B6-CE9A-4D85-A63E-1ED6F2465BA2',
@@ -35,13 +35,13 @@ let config = {
       host: '127.0.0.1',
       port: 6379,
       db: 0,
-      prefix: 'folk'
+      prefix: 'folk:'
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
       appid: 'wx5e4403178a799317',
       secret: 'd4624c36b6795d1d99dcf0547af5443d',
-      debug: true
+      debug: false
     }
   },
   'qa': {
@@ -52,7 +52,7 @@ let config = {
       host: '127.0.0.1',
       port: 6379,
       db: 1,
-      prefix: 'folkh5'
+      prefix: 'folkh5:'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
@@ -69,7 +69,7 @@ let config = {
       host: '127.0.0.1',
       port: 6379,
       db: 0,
-      prefix: 'folkh5'
+      prefix: 'folkh5:'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
