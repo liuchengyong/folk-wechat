@@ -18,7 +18,7 @@ app.use(session({
     store: new RedisStore({
       client: redis,
       //todo need to recompute ttl time from wechat session time
-      ttl: 7 * 24 * 60 * 60
+      ttl: 6000
     }),
     resave: false,
     saveUninitialized: false,
@@ -32,7 +32,7 @@ app.get('/api/wechat/config', (req, res) => {
   if (req.session.user) {
     Promise.all([
         wechatHelper.promiseGetTicket(req.headers.referer),
-        proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
+        proxyHelper.proxyGetCoupon(req.session.user, req.session.user.pid)
       ])
       .then(data => {
         res.header({vary: 'Accept'}).json({sdkConfig: data[0], coupon: data[1]});
@@ -45,6 +45,7 @@ app.get('/api/wechat/config', (req, res) => {
     wechatHelper.promiseGetAccessToken(req.query.code)
       .then(data => {
         req.session.user = data;
+        req.session.user.pid = req.query.pid;
         return Promise.all([
           wechatHelper.promiseGetTicket(req.headers.referer),
           proxyHelper.proxyGetCoupon(data, req.query.pid)
@@ -56,7 +57,7 @@ app.get('/api/wechat/config', (req, res) => {
       .catch(err => {
         res.status(500).end(err);
       });
-
+    //todo need to get user information
     //oauthAPI.getUser(accessToken.data.openid, function(err, userInfo) {
     //  if (err) {
     //    console.log(err)
@@ -79,7 +80,7 @@ app.post('/api/wechat/coupon', (req, res) => {
         res.json(data);
       })
       .catch(err => {
-        res.status(500).end('get coupon error');
+        res.status(500).end(err);
       })
   } else {
     res.status(401).end('unAuthenticated');
