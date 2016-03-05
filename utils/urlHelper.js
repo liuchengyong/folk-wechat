@@ -3,13 +3,14 @@
  */
 const config = require('../config');
 
-exports.createCouponUrl = (user, pid) => {
+exports.createCouponUrl = (user, pid, mobile) => {
   return {
     url: config.apiUrl + config.couponAPI + pid,
     method: 'POST',
     form: {
       'openId': user.openid,
-      'accessToken': user.access_token
+      'accessToken': user.access_token,
+      'mobile': mobile
     }
   }
 };

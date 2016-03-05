@@ -2,6 +2,7 @@
 const express = require('express');
 const request = require('request');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const RedisStore = require('connect-redis')(session);
 const config = require('./config');
 const urlHelper = require('./utils/urlHelper');
@@ -25,6 +26,8 @@ app.use(session({
   }
 ));
 
+app.use(bodyParser.json());
+
 app.get('/api/wechat/config', (req, res) => {
   if (req.session.user) {
     Promise.all([
@@ -43,9 +46,9 @@ app.get('/api/wechat/config', (req, res) => {
       .then(data => {
         req.session.user = data;
         return Promise.all([
-            wechatHelper.promiseGetTicket(req.headers.referer),
-            proxyHelper.proxyGetCoupon(data, req.query.pid)
-          ]);
+          wechatHelper.promiseGetTicket(req.headers.referer),
+          proxyHelper.proxyGetCoupon(data, req.query.pid)
+        ]);
       })
       .then(data => {
         res.header({vary: 'Accept'}).json({sdkConfig: data[0], coupon: data[1]});
@@ -59,6 +62,7 @@ app.get('/api/wechat/config', (req, res) => {
     //    console.log(err)
     //  }
     //});
+
   } else {
     res.status(400).end('needed code');
   }
@@ -66,6 +70,20 @@ app.get('/api/wechat/config', (req, res) => {
 
 app.get('/api/wechat/oauth', (req, res) => {
   res.redirect(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
+});
+
+app.post('/api/wechat/coupon', (req, res) => {
+  if (req.session.user) {
+    proxyHelper.proxyGetCoupon(req.session.user, req.query.pid, req.body.mobile)
+      .then(data => {
+        res.json(data);
+      })
+      .catch(err => {
+        res.status(500).end('get coupon error');
+      })
+  } else {
+    res.status(401).end('unAuthenticated');
+  }
 });
 
 app.listen(config.port, () => {
