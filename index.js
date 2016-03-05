@@ -32,12 +32,9 @@ app.get('/api/wechat/config', (req, res) => {
         proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
       ])
       .then(data => {
-        res
-          .header({vary: 'Accept'})
-          .json({sdkConfig: data[0], coupon: data[1]});
+        res.header({vary: 'Accept'}).json({sdkConfig: data[0], coupon: data[1]});
       })
       .catch(err => {
-        console.log(err);
         res.status(500).end(err);
       });
   } else if (req.query.code) {
@@ -45,24 +42,18 @@ app.get('/api/wechat/config', (req, res) => {
     wechatHelper.promiseGetAccessToken(req.query.code)
       .then(data => {
         req.session.user = data;
-        Promise.all([
+        return Promise.all([
             wechatHelper.promiseGetTicket(req.headers.referer),
-            proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
-          ])
-          .then(data => {
-            console.log(data);
-            res
-              .header({vary: 'Accept'})
-              .json({sdkConfig: data[0], coupon: data[1]});
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).end(err);
-          });
+            proxyHelper.proxyGetCoupon(data, req.query.pid)
+          ]);
+      })
+      .then(data => {
+        res.header({vary: 'Accept'}).json({sdkConfig: data[0], coupon: data[1]});
       })
       .catch(err => {
-        res.status(400).end(err);
+        res.status(500).end(err);
       });
+
     //oauthAPI.getUser(accessToken.data.openid, function(err, userInfo) {
     //  if (err) {
     //    console.log(err)
