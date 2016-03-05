@@ -8,8 +8,8 @@ exports.createCouponUrl = (user, pid) => {
     url: config.apiUrl + config.couponAPI + pid,
     method: 'POST',
     form: {
-      'openId': user.data.openid,
-      'accessToken': user.data.access_token
+      'openId': user.openid,
+      'accessToken': user.access_token
     }
   }
 };
