@@ -28,26 +28,23 @@ app.use(session({
 app.get('/api/wechat/config', (req, res) => {
   if (req.session.user) {
     Promise.all([
-      wechatHelper.promiseGetTicket(req.headers.referer),
-      proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
-    ])
-    .then(data => {
-      console.log(data[1]);
-      res
-        .header({vary: 'Accept'})
-        .json({sdkConfig: data[0], coupon: data[1]});
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).end(err);
-    });
+        wechatHelper.promiseGetTicket(req.headers.referer),
+        proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
+      ])
+      .then(data => {
+        res
+          .header({vary: 'Accept'})
+          .json({sdkConfig: data[0], coupon: data[1]});
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).end(err);
+      });
   } else if (req.query.code) {
     //todo need to release accessToken from redis
-    oauthAPI.getAccessToken(req.query.code, function(err, accessToken) {
-      if (err) {
-        res.status(400).end('invalid code');
-      } else {
-        req.session.user = accessToken.data;
+    wechatHelper.promiseGetAccessToken(req.query.code)
+      .then(data => {
+        req.session.user = data;
         Promise.all([
             wechatHelper.promiseGetTicket(req.headers.referer),
             proxyHelper.proxyGetCoupon(req.session.user, req.query.pid)
@@ -62,13 +59,15 @@ app.get('/api/wechat/config', (req, res) => {
             console.log(err);
             res.status(500).end(err);
           });
-        //oauthAPI.getUser(accessToken.data.openid, function(err, userInfo) {
-        //  if (err) {
-        //    console.log(err)
-        //  }
-        //});
-      }
-    });
+      })
+      .catch(err => {
+        res.status(400).end(err);
+      });
+    //oauthAPI.getUser(accessToken.data.openid, function(err, userInfo) {
+    //  if (err) {
+    //    console.log(err)
+    //  }
+    //});
   } else {
     res.status(400).end('needed code');
   }

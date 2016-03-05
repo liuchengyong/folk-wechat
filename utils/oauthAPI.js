@@ -8,13 +8,18 @@ const redisSetting = config.redisSetting;
 const OAuth = require('wechat-oauth');
 const redis = require('./redisClient');
 
-let oauthApi = new OAuth(wechatAccess.appid, wechatAccess.secret, (openid, callback) => {
-  redis.get(openid, (err, reply) => {
-    if (err) return callback(err);
-    callback(null, JSON.parse(reply));
-  });
-}, (openid, token, callback) => {
-  redis.setex(openid, redisSetting.expiredTime, JSON.stringify(token), callback);
-});
+let oauthApi;
 
-module.exports = oauthApi;
+module.exports = (() => {
+  if (!oauthApi) {
+    oauthApi = new OAuth(wechatAccess.appid, wechatAccess.secret, (openid, callback) => {
+      redis.get(openid, (err, reply) => {
+        if (err) return callback(err);
+        callback(null, JSON.parse(reply));
+      });
+    }, (openid, token, callback) => {
+      redis.setex(openid, redisSetting.expiredTime, JSON.stringify(token), callback);
+    });
+  }
+  return oauthApi;
+})();
