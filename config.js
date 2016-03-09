@@ -21,7 +21,7 @@ let baseConfig = {
     wechatTicketKey: 'wechat-ticket',
     expiredTime: 60 * 100
   },
-  couponUrl: 'http://wetest.zhid58.com/coupon?pid=09E572B6-CE9A-4D85-A63E-1ED6F2465BA2',
+  couponUrl: 'http://wetest.zhid58.com/main/coupon?pid=09E572B6-CE9A-4D85-A63E-1ED6F2465BA2',
   couponAPI: '/api/v1/coupon/grab/'
 };
 

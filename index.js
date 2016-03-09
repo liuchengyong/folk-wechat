@@ -41,7 +41,6 @@ app.get('/api/wechat/config', (req, res) => {
         res.status(500).end(err);
       });
   } else if (req.query.code) {
-    //todo need to release accessToken from redis
     wechatHelper.promiseGetAccessToken(req.query.code)
       .then(data => {
         req.session.user = data;
@@ -65,7 +64,7 @@ app.get('/api/wechat/config', (req, res) => {
     //});
 
   } else {
-    res.status(400).end('needed code');
+    res.status(403).end(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
   }
 });
 
