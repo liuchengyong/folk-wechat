@@ -28,17 +28,24 @@ app.use(session({
 app.use(bodyParser.json());
 
 app.get('/api/wechat/config', (req, res) => {
+  wechatHelper.promiseGetTicket(req.headers.referer)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.status(500).end(err);
+    });
+});
+
+app.post('/api/wechat/coupon', (req, res) => {
   if (req.session.user) {
-    Promise.all([
-        wechatHelper.promiseGetTicket(req.headers.referer),
-        proxyHelper.proxyGetCoupon(req.session.user, req.session.user.pid)
-      ])
+    proxyHelper.proxyGetCoupon(req.session.user, req.session.user.pid, req.body.mobile)
       .then(data => {
-        res.json({sdkConfig: data[0], coupon: data[1]});
+        res.json(data);
       })
       .catch(err => {
         res.status(500).end(err);
-      });
+      })
   } else if (req.query.code) {
     wechatHelper.promiseGetAccessToken(req.query.code)
       .then(data => {
@@ -50,33 +57,16 @@ app.get('/api/wechat/config', (req, res) => {
           })
           .then(result => console.log(`record ${result.param.user.loginName} user info`))
           .catch(err => console.log(err));
-        return Promise.all([
-          wechatHelper.promiseGetTicket(req.headers.referer),
-          proxyHelper.proxyGetCoupon(data, req.query.pid)
-        ]);
+        return proxyHelper.proxyGetCoupon(data, req.query.pid);
       })
       .then(data => {
-        res.json({sdkConfig: data[0], coupon: data[1]});
+        res.json(data);
       })
       .catch(err => {
         res.status(500).end(err);
       });
   } else {
     res.status(403).end(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
-  }
-});
-
-app.post('/api/wechat/coupon', (req, res) => {
-  if (req.session.user) {
-    proxyHelper.proxyGetCoupon(req.session.user, req.query.pid || req.session.pid, req.body.mobile)
-      .then(data => {
-        res.json(data);
-      })
-      .catch(err => {
-        res.status(500).end(err);
-      })
-  } else {
-    res.status(401).end('unAuthenticated');
   }
 });
 
