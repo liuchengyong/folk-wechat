@@ -66,10 +66,6 @@ app.get('/api/wechat/config', (req, res) => {
   }
 });
 
-app.get('/api/wechat/oauth', (req, res) => {
-  res.redirect(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
-});
-
 app.post('/api/wechat/coupon', (req, res) => {
   if (req.session.user) {
     proxyHelper.proxyGetCoupon(req.session.user, req.query.pid || req.session.pid, req.body.mobile)
