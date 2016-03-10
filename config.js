@@ -22,7 +22,9 @@ let baseConfig = {
     expiredTime: 60 * 100
   },
   couponUrl: 'http://wetest.zhid58.com/main/coupon?pid=09E572B6-CE9A-4D85-A63E-1ED6F2465BA2',
-  couponAPI: '/api/v1/coupon/grab/'
+  couponAPI: '/api/v1/coupon/grab/',
+  socialAPI: '/api/v1/user/login/social',
+  userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg'
 };
 
 let config = {

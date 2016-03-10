@@ -53,7 +53,15 @@ exports.promiseGetTicket = (url) => {
 exports.promiseGetAccessToken = (code) => {
   return new Promise((resolve, reject) => {
     oauthAPI.getAccessToken(code, (err, accessToken) => {
-      err ? reject('invalid code') : resolve( accessToken.data);
+      err ? reject('invalid code') : resolve(accessToken.data);
     })
+  });
+};
+
+exports.promisePostUserInfo = (openid) => {
+  return new Promise((resolve, reject) => {
+    oauthAPI.getUser(openid, (err, userInfo) => {
+      err ? reject('post user info error') : resolve(userInfo);
+    });
   });
 };
