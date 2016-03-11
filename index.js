@@ -3,6 +3,7 @@ const express = require('express');
 const request = require('request');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const RedisStore = require('connect-redis')(session);
 const config = require('./config');
 const urlHelper = require('./utils/urlHelper');
@@ -25,6 +26,7 @@ app.use(session({
   }
 ));
 
+app.use(morgan('short'));
 app.use(bodyParser.json());
 
 app.get('/api/wechat/config', (req, res) => {
