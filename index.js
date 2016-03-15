@@ -67,8 +67,10 @@ app.post('/api/wechat/coupon', (req, res) => {
       .catch(err => {
         res.status(500).end(err);
       });
+  } else if (req.query.pid) {
+    res.status(403).end(oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}` , '1', 'snsapi_userinfo'))
   } else {
-    res.status(403).end(oauthAPI.getAuthorizeURL(config.couponUrl, '1', 'snsapi_userinfo'))
+    res.status(416).end('416');
   }
 });
 
