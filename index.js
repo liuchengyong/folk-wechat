@@ -41,7 +41,7 @@ app.get('/api/wechat/config', (req, res) => {
 
 app.post('/api/wechat/coupon', (req, res) => {
   if (req.session.user) {
-    proxyHelper.proxyGetCoupon(req.session.user, req.session.user.pid, req.body.mobile)
+    proxyHelper.proxyGetCoupon(req.session.user,  req.query.pid || req.session.user.pid, req.body.mobile)
       .then(data => {
         res.json(data);
       })
