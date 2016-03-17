@@ -6,7 +6,6 @@ const config = require('../config');
 const wechatAccess = config.wechatAccess;
 const jsApiList = config.jsApiList;
 const sha1 = require('sha1');
-const wechatAPI = require('./wechatAPI');
 const oauthAPI = require('./oauthAPI');
 
 const createNonceStr = () => Math.random().toString(36).substr(2, 15);
@@ -20,7 +19,7 @@ const contactString = (args) => {
     .join('&');
 };
 
-const signature = (signObj) => {
+exports.signature = (signObj) => {
   Object.assign(signObj, {
     nonceStr: createNonceStr(),
     timestamp: createTimeStamp()
@@ -39,21 +38,11 @@ const signature = (signObj) => {
   return signObj;
 };
 
-exports.promiseGetTicket = (url) => {
-  return new Promise((resolve, reject) => {
-    wechatAPI.getLatestTicket((err, reply) => {
-      err ? reject('get ticket error') : resolve(signature({
-        jsapi_ticket: reply.ticket,
-        url: url
-      }));
-    })
-  });
-};
 
 exports.promiseGetAccessToken = (code) => {
   return new Promise((resolve, reject) => {
     oauthAPI.getAccessToken(code, (err, accessToken) => {
-      err ? reject('invalid code') : resolve(accessToken.data);
+      err ? reject('403') : resolve(accessToken.data);
     })
   });
 };

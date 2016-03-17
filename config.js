@@ -24,7 +24,9 @@ let baseConfig = {
   couponUrl: 'http://wetest.zhid58.com/coupon',
   couponAPI: '/api/v1/coupon/grab/',
   socialAPI: '/api/v1/user/login/social',
-  userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg'
+  userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
+  wechatTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=',
+  wechatToken: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
 };
 
 let config = {
@@ -41,8 +43,8 @@ let config = {
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
-      appid: 'wx5e4403178a799317',
-      secret: 'd4624c36b6795d1d99dcf0547af5443d',
+      appid: 'wx12dcfbd9b818c92a',
+      secret: 'b36953ee8e0ebef47fff63a8e39721c9',
       debug: false
     }
   },

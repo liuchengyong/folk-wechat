@@ -26,15 +26,19 @@ app.use(session({
   }
 ));
 
-app.use(morgan('short'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.get('/api/wechat/config', (req, res) => {
-  wechatHelper.promiseGetTicket(req.headers.referer)
-    .then(data => {
-      res.json(data);
+  wechatAPI.folkGetLastTicket()
+    .then(ticket => {
+      res.json(wechatHelper.signature({
+        jsapi_ticket: ticket,
+        url: req.headers.referer
+      }));
     })
     .catch(err => {
+      console.log(err);
       res.status(500).end(err);
     });
 });
@@ -46,6 +50,7 @@ app.post('/api/wechat/coupon', (req, res) => {
         res.json(data);
       })
       .catch(err => {
+        console.log(err);
         res.status(500).end(err);
       })
   } else if (req.query.code) {
@@ -68,9 +73,10 @@ app.post('/api/wechat/coupon', (req, res) => {
         res.status(500).end(err);
       });
   } else if (req.query.pid) {
+    //todo need to merge all the query parameters
     res.status(403).end(oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}` , '1', 'snsapi_userinfo'))
   } else {
-    res.status(416).end('416');
+    res.status(416).end('401');
   }
 });
 
