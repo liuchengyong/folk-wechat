@@ -45,7 +45,7 @@ app.get('/api/wechat/config', (req, res) => {
 
 app.post('/api/wechat/coupon', (req, res) => {
   if (req.session.user) {
-    proxyHelper.proxyGetCoupon(req.session.user,  req.query.pid || req.session.user.pid, req.body.mobile)
+    proxyHelper.proxyGetCoupon(req.session.user, req.query.pid || req.session.user.pid, req.body.mobile)
       .then(data => {
         res.json(data);
       })
@@ -74,9 +74,12 @@ app.post('/api/wechat/coupon', (req, res) => {
       });
   } else if (req.query.pid) {
     //todo need to merge all the query parameters
-    res.status(403).end(oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}` , '1', 'snsapi_userinfo'))
+    res.status(200).json({
+      code: '403',
+      href: oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}`, '1', 'snsapi_userinfo')
+    })
   } else {
-    res.status(416).end('401');
+    res.status(200).json({code: '401'});
   }
 });
 
