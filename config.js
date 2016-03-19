@@ -66,7 +66,7 @@ let config = {
     }
   },
   'production': {
-    port: 3000,
+    port: 3001,
     apiUrl: 'http://10.46.167.86:8080',
     domain: 'http://zhid58.com',
     redis: {
