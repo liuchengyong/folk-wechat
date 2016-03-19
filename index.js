@@ -58,12 +58,12 @@ app.post('/api/wechat/coupon', (req, res) => {
       .then(data => {
         req.session.user = data;
         req.session.user.pid = req.query.pid;
-        wechatHelper.promisePostUserInfo(data.openid)
-          .then(userInfo => {
-            return proxyHelper.proxyPostUserInfo(userInfo);
-          })
-          .then(result => console.log(`record ${result.param.user.loginName} user info`))
-          .catch(err => console.log(err));
+        //wechatHelper.promisePostUserInfo(data.openid)
+        //  .then(userInfo => {
+        //    return proxyHelper.proxyPostUserInfo(userInfo);
+        //  })
+        //  .then(result => console.log(`record ${result.param.user.loginName} user info`))
+        //  .catch(err => console.log(err));
         return proxyHelper.proxyGetCoupon(data, req.query.pid);
       })
       .then(data => {
