@@ -43,8 +43,8 @@ let config = {
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
-      appid: 'wx12dcfbd9b818c92a',
-      secret: 'b36953ee8e0ebef47fff63a8e39721c9',
+      appid: 'wx5e4403178a799317',
+      secret: 'd4624c36b6795d1d99dcf0547af5443d',
       debug: false
     }
   },
@@ -56,7 +56,7 @@ let config = {
       host: '127.0.0.1',
       port: 6379,
       db: 1,
-      prefix: 'folkh5:'
+      prefix: 'folk:'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
@@ -70,10 +70,11 @@ let config = {
     apiUrl: 'http://10.46.167.86:8080',
     domain: 'http://zhid58.com',
     redis: {
-      host: '127.0.0.1',
+      host: '9b2e6b1d7bcd4bd0.m.cnbja.kvstore.aliyuncs.com',
       port: 6379,
       db: 0,
-      prefix: 'folkh5:'
+      prefix: 'folk:',
+      password: '9b2e6b1d7bcd4bd0:LuotengPassw0rd'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
