@@ -21,7 +21,7 @@ let baseConfig = {
     wechatTicketKey: 'wechat-ticket',
     expiredTime: 60 * 100
   },
-  couponUrl: 'http://wetest.zhid58.com/coupon',
+  couponUrl: 'http://www.zhid58.com/coupon',
   couponAPI: '/api/v1/coupon/grab/',
   socialAPI: '/api/v1/user/login/social',
   userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
