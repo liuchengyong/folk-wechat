@@ -76,7 +76,7 @@ app.post('/api/wechat/coupon', (req, res) => {
     //todo need to merge all the query parameters
     res.status(200).json({
       code: '403',
-      href: oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}`, '1', 'snsapi_userinfo')
+      href: oauthAPI.getAuthorizeURL(`${config.domain}/coupon?pid=${req.query.pid}`, '1', 'snsapi_userinfo')
     })
   } else {
     res.status(200).json({code: '401'});

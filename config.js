@@ -21,7 +21,6 @@ let baseConfig = {
     wechatTicketKey: 'wechat-ticket',
     expiredTime: 60 * 100
   },
-  couponUrl: 'http://www.zhid58.com/coupon',
   couponAPI: '/api/v1/coupon/grab/',
   socialAPI: '/api/v1/user/login/social',
   userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
@@ -68,7 +67,7 @@ let config = {
   'production': {
     port: 3001,
     apiUrl: 'http://10.46.167.86:8080',
-    domain: 'http://zhid58.com',
+    domain: 'http://www.zhid58.com',
     redis: {
       host: '9b2e6b1d7bcd4bd0.m.cnbja.kvstore.aliyuncs.com',
       port: 6379,
