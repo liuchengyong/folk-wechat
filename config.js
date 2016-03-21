@@ -43,14 +43,14 @@ let config = {
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
-      appid: 'wx5e4403178a799317',
-      secret: 'd4624c36b6795d1d99dcf0547af5443d',
+      appid: 'wx12dcfbd9b818c92a',
+      secret: 'b36953ee8e0ebef47fff63a8e39721c9',
       debug: false
     }
   },
-  'qa': {
-    port: 3001,
-    apiUrl: 'http://10.251.193.194:8080',
+  'test': {
+    port: 3000,
+    apiUrl: 'http://test.zhdi58.com:8080',
     domain: 'http://wetest.zhid58.com',
     redis: {
       host: '127.0.0.1',
