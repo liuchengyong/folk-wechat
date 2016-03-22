@@ -18,7 +18,7 @@ app.use(session({
     secret: config.sessionSecret,
     store: new RedisStore({
       client: redis,
-      ttl: 60 * 60 * 24 * 30
+      ttl: 60 * 100
     }),
     resave: false,
     saveUninitialized: false,
