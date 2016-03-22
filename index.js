@@ -50,7 +50,7 @@ app.post('/api/wechat/coupon', (req, res) => {
         res.json(data);
       })
       .catch(err => {
-        res.status(500).json(err);
+        res.status(200).json(err);
       })
   } else if (req.query.code) {
     wechatHelper.promiseGetAccessToken(req.query.code)
@@ -69,7 +69,7 @@ app.post('/api/wechat/coupon', (req, res) => {
         res.json(data);
       })
       .catch(err => {
-        res.status(500).json(err);
+        res.status(200).json(err);
       });
   } else if (req.query.pid) {
     //todo need to merge all the query parameters
