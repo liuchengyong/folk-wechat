@@ -42,7 +42,7 @@ exports.signature = (signObj) => {
 exports.promiseGetAccessToken = (code) => {
   return new Promise((resolve, reject) => {
     oauthAPI.getAccessToken(code, (err, accessToken) => {
-      err ? reject('405') : resolve(accessToken.data);
+      err ? reject({code: '405'}) : resolve(accessToken.data);
     })
   });
 };
