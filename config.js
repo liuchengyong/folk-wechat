@@ -39,6 +39,7 @@ let config = {
       port: 6379,
       db: 0,
       prefix: 'folk:'
+      
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
