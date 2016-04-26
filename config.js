@@ -21,7 +21,6 @@ let baseConfig = {
     wechatTicketKey: 'wechat-ticket',
     expiredTime: 60 * 100
   },
-  couponUrl: 'http://wetest.zhid58.com/coupon',
   couponAPI: '/api/v1/coupon/grab/',
   socialAPI: '/api/v1/user/login/social',
   userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
@@ -48,15 +47,15 @@ let config = {
       debug: false
     }
   },
-  'qa': {
-    port: 3001,
-    apiUrl: 'http://10.251.193.194:8080',
+  'test': {
+    port: 3000,
+    apiUrl: 'http://test.zhdi58.com:8080',
     domain: 'http://wetest.zhid58.com',
     redis: {
       host: '127.0.0.1',
       port: 6379,
       db: 1,
-      prefix: 'folkh5:'
+      prefix: 'folk:'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
@@ -66,14 +65,15 @@ let config = {
     }
   },
   'production': {
-    port: 3000,
+    port: 3001,
     apiUrl: 'http://10.46.167.86:8080',
-    domain: 'http://zhid58.com',
+    domain: 'http://www.zhid58.com',
     redis: {
-      host: '127.0.0.1',
+      host: '9b2e6b1d7bcd4bd0.m.cnbja.kvstore.aliyuncs.com',
       port: 6379,
       db: 0,
-      prefix: 'folkh5:'
+      prefix: 'folk:',
+      password: '9b2e6b1d7bcd4bd0:LuotengPassw0rd'
     },
     authCookieName: 'folkh5_',
     wechatAccess: {

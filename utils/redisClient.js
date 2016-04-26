@@ -8,7 +8,15 @@ const redisConfig = require('../config').redis;
 let redisClient;
 let createRedisServer = (redis, redisConfig) => {
   if (!redisClient) {
-    redisClient = redis.createClient(redisConfig.port, redisConfig.host, {prefix: redisConfig.prefix});
+    let options = {
+      port: redisConfig.port,
+      host: redisConfig.host,
+      prefix: redisConfig.prefix
+    };
+    if (redisConfig.password) {
+      options.password = redisConfig.password;
+    }
+    redisClient = redis.createClient(options);
 
     redisClient.on('error', (err) => {
       console.log("Error " + err);

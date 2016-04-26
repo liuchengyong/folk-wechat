@@ -18,7 +18,7 @@ app.use(session({
     secret: config.sessionSecret,
     store: new RedisStore({
       client: redis,
-      ttl: 60 * 60 * 24 * 30
+      ttl: 60 * 100
     }),
     resave: false,
     saveUninitialized: false,
@@ -45,38 +45,40 @@ app.get('/api/wechat/config', (req, res) => {
 
 app.post('/api/wechat/coupon', (req, res) => {
   if (req.session.user) {
-    proxyHelper.proxyGetCoupon(req.session.user,  req.query.pid || req.session.user.pid, req.body.mobile)
+    proxyHelper.proxyGetCoupon(req.session.user, req.query.pid || req.session.user.pid, req.body.mobile)
       .then(data => {
         res.json(data);
       })
       .catch(err => {
-        console.log(err);
-        res.status(500).end(err);
+        res.status(200).json(err);
       })
   } else if (req.query.code) {
     wechatHelper.promiseGetAccessToken(req.query.code)
       .then(data => {
         req.session.user = data;
         req.session.user.pid = req.query.pid;
-        wechatHelper.promisePostUserInfo(data.openid)
-          .then(userInfo => {
-            return proxyHelper.proxyPostUserInfo(userInfo);
-          })
-          .then(result => console.log(`record ${result.param.user.loginName} user info`))
-          .catch(err => console.log(err));
+        //wechatHelper.promisePostUserInfo(data.openid)
+        //  .then(userInfo => {
+        //    return proxyHelper.proxyPostUserInfo(userInfo);
+        //  })
+        //  .then(result => console.log(`record ${result.param.user.loginName} user info`))
+        //  .catch(err => console.log(err));
         return proxyHelper.proxyGetCoupon(data, req.query.pid);
       })
       .then(data => {
         res.json(data);
       })
       .catch(err => {
-        res.status(500).end(err);
+        res.status(200).json(err);
       });
   } else if (req.query.pid) {
     //todo need to merge all the query parameters
-    res.status(403).end(oauthAPI.getAuthorizeURL(`${config.couponUrl}?pid=${req.query.pid}` , '1', 'snsapi_userinfo'))
+    res.status(200).json({
+      code: '403',
+      href: oauthAPI.getAuthorizeURL(`${config.domain}/coupon?pid=${req.query.pid}`, '1', 'snsapi_userinfo')
+    })
   } else {
-    res.status(416).end('401');
+    res.status(200).json({code: '401'});
   }
 });
 

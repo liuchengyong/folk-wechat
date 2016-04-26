@@ -8,7 +8,7 @@ const urlHelper = require('./urlHelper');
 exports.proxyGetCoupon = (user, pid, mobile) => {
   return new Promise((resolve, reject) => {
     request(urlHelper.createCouponUrl(user, pid, mobile), (err, response, body) => {
-      response.statusCode == '200' ? resolve(JSON.parse(body)) : reject('502');
+      response && response.statusCode == '200' ? resolve(JSON.parse(body)) : reject({code: '502'});
     });
   });
 };
