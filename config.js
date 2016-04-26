@@ -43,8 +43,8 @@ let config = {
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
-      appid: 'wx12dcfbd9b818c92a',
-      secret: 'b36953ee8e0ebef47fff63a8e39721c9',
+      appid: 'wx5e4403178a799317',
+      secret: 'd4624c36b6795d1d99dcf0547af5443d',
       debug: false
     }
   },
