@@ -43,8 +43,8 @@ let config = {
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
-      appid: 'wx5e4403178a799317',
-      secret: 'd4624c36b6795d1d99dcf0547af5443d',
+      appid: 'wx490b6bfcf951da67',
+      secret: 'a82772ce935e585536f4e56a1bfe1e55',
       debug: false
     }
   },
@@ -60,8 +60,8 @@ let config = {
     },
     authCookieName: 'folkh5_',
     wechatAccess: {
-      appid: 'wx5e4403178a799317',
-      secret: 'd4624c36b6795d1d99dcf0547af5443d',
+      appid: 'wx490b6bfcf951da67',
+      secret: 'a82772ce935e585536f4e56a1bfe1e55',
       debug: true
     }
   },
