@@ -14,7 +14,13 @@ let baseConfig = {
     order_status: 'KdCt8TKeAwvy7iN82ZTpDZhqUyOGaOxZXeq1_6hKHY0',
     hongbao: 'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k'
   },
-  jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+  jsApiList: [
+    'onMenuShareTimeline', 
+    'onMenuShareAppMessage',
+    'onMenuShareQQ',
+    'onMenuShareWeibo',
+    'onMenuShareQZone'
+    ],
   sessionSecret: 'folkh5_f%95te*uw*r3cr5k59rmplz4d1(t*oe$u@#ct1!ytnt5133e_o',
   redisSetting: {
     wechatTokenKey: 'wechat-token',

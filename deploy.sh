@@ -1,6 +1,8 @@
 #!/bin/bash
-ssh -i ~/.ssh/deploy_rsa folk@101.200.122.163 bash -c "'
+ssh -i ~/.ssh/publish_rsa folk@101.200.122.163 bash -c "'
 cd folk-wechat
+git fetch --all  
+git reset --hard origin/master 
 git pull origin master
 source ~/.nvm/nvm.sh 
 npm install
