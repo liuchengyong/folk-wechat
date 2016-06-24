@@ -31,7 +31,9 @@ let baseConfig = {
   socialAPI: '/api/v1/user/login/social',
   userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
   wechatTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=',
-  wechatToken: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
+  wechatToken: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
+  sendMessage:'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=',
+  sendTemplateMessage:'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='
 };
 
 let config = {
@@ -44,14 +46,18 @@ let config = {
       host: '127.0.0.1',
       port: 6379,
       db: 0,
-      prefix: 'folk:'
-      
+      prefix: 'folk:'  
     },
     authCookieName: 'slarkh5_',
     wechatAccess: {
       appid: 'wx490b6bfcf951da67',
       secret: 'a82772ce935e585536f4e56a1bfe1e55',
       debug: false
+    },
+    TemplateMessageList:{
+      FreeCoupon:'qQc2Y0xIg__fMLux1v-0oMLUX-staRojFqJbjliqXz8',
+      Coupon:'qQc2Y0xIg__fMLux1v-0oMLUX-staRojFqJbjliqXz8',
+      Appoint:'_Ba3Q-mENktBo816khYnzIf8TwX5ZHQfKAQy-juCGC8'
     }
   },
   'test': {
@@ -69,6 +75,11 @@ let config = {
       appid: 'wx490b6bfcf951da67',
       secret: 'a82772ce935e585536f4e56a1bfe1e55',
       debug: true
+    },
+    TemplateMessageList:{
+      FreeCoupon:'qQc2Y0xIg__fMLux1v-0oMLUX-staRojFqJbjliqXz8',
+      Coupon:'qQc2Y0xIg__fMLux1v-0oMLUX-staRojFqJbjliqXz8',
+      Appoint:'_Ba3Q-mENktBo816khYnzIf8TwX5ZHQfKAQy-juCGC8'
     }
   },
   'production': {
@@ -87,6 +98,11 @@ let config = {
       appid: 'wx254dcfe98729df4b',
       secret: 'e3e28c51fb45d31bb1ae70c4c76afe26',
       debug: false
+    },
+    TemplateMessageList:{
+      FreeCoupon:'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k',
+      Coupon:'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k',
+      Appoint:'8Nx6veHHWirb-x2HdoVFB1EO7LLk9bFbH229HKvbAK4'
     }
   }
 };

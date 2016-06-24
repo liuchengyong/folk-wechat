@@ -10,9 +10,12 @@ const urlHelper = require('./utils/urlHelper');
 const redis = require('./utils/redisClient');
 const proxyHelper = require('./utils/proxyHelper');
 const wechatHelper = require('./utils/wechatHelper');
+
 let wechatAPI = require('./utils/wechatAPI');
 let oauthAPI = require('./utils/oauthAPI');
+let sendMessage =  require('./utils/sendMessage');
 let app = express();
+
 
 app.use(session({
     secret: config.sessionSecret,
@@ -28,7 +31,9 @@ app.use(session({
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+//FreeCoupon Coupon Appoint
 app.get('/api/wechat/config', (req, res) => {
   wechatAPI.folkGetLastTicket()
     .then(ticket => {
@@ -81,6 +86,35 @@ app.post('/api/wechat/coupon', (req, res) => {
     res.status(200).json({code: '401'});
   }
 });
+
+app.post('/api/v1/weixin/template/message/send',(req, res) => {
+  wechatAPI.folkGetLastToken()
+    .then(token => {
+      return sendMessage.sendTemplateMessage(token,req.body);
+    })
+    .then(data =>{
+      data.msg = data.errcode == 0 ? 'SUCCESS':'微信模板消息发送失败了';
+      res.json(data);
+    })
+    .catch(err => {
+      res.status(500).end(err);
+    });
+});
+
+app.post('/api/v1/weixin/message/send',(req, res) => {
+  wechatAPI.folkGetLastToken()
+    .then(token => {
+      return sendMessage.sendMessage(token,req.body);
+    }).then(data => {
+      data.msg = data.errcode == 0 ? 'SUCCESS':'微信模板消息发送失败了';
+      res.json(data);
+    })
+    .catch(err => {
+      res.status(500).end(err);
+    });
+});
+
+
 
 app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port} !`);
