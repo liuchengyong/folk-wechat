@@ -102,7 +102,7 @@ let config = {
     TemplateMessageList:{
       FreeCoupon:'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k',
       Coupon:'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k',
-      Appoint:'8Nx6veHHWirb-x2HdoVFB1EO7LLk9bFbH229HKvbAK4'
+      Appoint:'WpDzCtSceE74vUwegg3XPRoP6cO12uv0tfZWhGmvMKc'
     }
   }
 };
