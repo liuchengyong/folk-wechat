@@ -15,7 +15,7 @@ const request = require('request');
  */
 exports.sendTemplateMessage = function(token,params){
 	params.template_id = config.TemplateMessageList[params.type];
-	params.url = "http://weixin.qq.com/download";
+	params.url = "http://www.zhid58.com/downApp";
 	delete params.type; 
 	console.log(params);
 	return new Promise((resolve, reject) => {
