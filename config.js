@@ -19,7 +19,8 @@ let baseConfig = {
     'onMenuShareAppMessage',
     'onMenuShareQQ',
     'onMenuShareWeibo',
-    'onMenuShareQZone'
+    'onMenuShareQZone',
+    'chooseWXPay'
     ],
   sessionSecret: 'folkh5_f%95te*uw*r3cr5k59rmplz4d1(t*oe$u@#ct1!ytnt5133e_o',
   redisSetting: {
