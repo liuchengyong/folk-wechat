@@ -101,7 +101,7 @@ let config = {
     wechatAccess: {
       appid: 'wx254dcfe98729df4b',
       secret: 'e3e28c51fb45d31bb1ae70c4c76afe26',
-      debug: true
+      debug: false
     },
     TemplateMessageList:{
       FreeCoupon:'JH5cSK32BFt6SCUFvwzynD0TmHTZ4KnYZRY3JJ8nv1k',
