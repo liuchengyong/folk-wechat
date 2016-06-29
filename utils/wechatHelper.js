@@ -50,7 +50,7 @@ exports.promiseGetAccessToken = (code) => {
 exports.promisePostUserInfo = (openid) => {
   return new Promise((resolve, reject) => {
     oauthAPI.getUser(openid, (err, userInfo) => {
-      err ? reject('post user info error') : resolve(userInfo);
+      err ? reject({code: '405'}) : resolve(userInfo);
     });
   });
 };

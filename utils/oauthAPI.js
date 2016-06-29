@@ -9,7 +9,7 @@ let oauthApi;
 
 module.exports = (() => {
   if (!oauthApi) {
-    oauthApi = new OAuth(wechatAccess.appid, wechatAccess.secret);
+    oauthApi = new OAuth(wechatAccess.appid, wechatAccess.secret);    
   }
   return oauthApi;
 })();

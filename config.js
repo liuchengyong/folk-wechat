@@ -29,7 +29,9 @@ let baseConfig = {
   },
   couponAPI: '/api/v1/coupon/grab/',
   socialAPI: '/api/v1/user/login/social',
-  userDefaultImg: 'http://statics.zhid58.com/img/share_hongbao.jpg',
+  orderAPI:'api/v1/fund', 
+  payAPI:'api/v1/payment',
+  userDefaultImg: 'http://7xl9qr.com1.z0.glb.clouddn.com/a8dbb05530fa97efb02b9e46568b5d45',
   wechatTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=',
   wechatToken: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
   sendMessage:'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=',
@@ -86,6 +88,7 @@ let config = {
     port: 3001,
     apiUrl: 'http://10.46.167.86:8080',
     domain: 'http://www.zhid58.com',
+    environment:'production',
     redis: {
       host: '9b2e6b1d7bcd4bd0.m.cnbja.kvstore.aliyuncs.com',
       port: 6379,
