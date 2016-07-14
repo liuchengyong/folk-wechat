@@ -29,8 +29,8 @@ exports.createSocialUrl = (user) => {
     url: `${config.apiUrl}${config.socialAPI}`,
     headers:{
       deviceId:'web123123123',
-      'osType':'WEB',
-      'code':25
+      osType:'WEB',
+      code:25
     },
     form: {
       channel:'ZHIDIAN_WECHAT_H5',
@@ -38,7 +38,8 @@ exports.createSocialUrl = (user) => {
       loginName: encodeURIComponent(user.nickname),
       gender: user.sex === 1  ? 'MALE' : user.sex === 2 ? 'FEMALE' : 'SECRET',
       avatar: user.headimgurl || config.userHeadDefaultImg,
-      type: 'WEIXIN_PUBLIC_ACCOUNT'
+      type: 'WEIXIN_PUBLIC_ACCOUNT',
+      account: user.unionid
     }
   });
 };
