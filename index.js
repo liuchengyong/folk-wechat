@@ -100,12 +100,11 @@ app.post('/api/wechat/base',URLENCODED,(req,res) => {
     res.json(req.session.user);
   }else if(req.query.code){ //获取了微信页面的code
     wechatHelper.promiseGetAccessToken(req.query.code)
+    .then(data => wechatHelper.promisePostUserInfo(data.openid))
+    .then(data => proxyHelper.proxyPostUserInfo(data))
     .then(data =>{
-      return wechatHelper.promisePostUserInfo(data.openid);
-    })
-    .then(data =>{
-      req.session.user = data;
-      res.json(data);
+      req.session.user = data.user;
+      res.json(data.user);
     })
     .catch(err => {
       res.status(200).json(err);
@@ -144,8 +143,6 @@ app.post('/api/v1/weixin/message/send',JOSNPARSER,(req, res) => {
       res.status(500).end(err);
     });
 });
-
-
 
 app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port} !`);

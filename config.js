@@ -32,6 +32,7 @@ let baseConfig = {
   socialAPI: '/api/v1/user/login/social',
   orderAPI:'api/v1/fund', 
   payAPI:'api/v1/payment',
+  userHeadDefaultImg:'http://statics.zhid58.com/ic_me_avatar_default.png',
   userDefaultImg: 'http://7xl9qr.com1.z0.glb.clouddn.com/a8dbb05530fa97efb02b9e46568b5d45',
   wechatTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=',
   wechatToken: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',

@@ -27,13 +27,18 @@ exports.createCouponUrl = (user, pid, mobile) => {
 exports.createSocialUrl = (user) => {
   return createUrl({
     url: `${config.apiUrl}${config.socialAPI}`,
+    headers:{
+      deviceId:'web123123123',
+      'osType':'WEB',
+      'code':25
+    },
     form: {
-      type: 'WEIXIN_PUBLIC_ACCOUNT',
+      channel:'ZHIDIAN_WECHAT_H5',
       socialId: user.openid,
-      avatar: user.headimgurl || config.userDefaultImg,
-      loginName: user.nickname,
-      account: user.unionid,
-      gender: user.sex === 1  ? 'MALE' : user.sex === 2 ? 'FEMALE' : 'SECRET'
+      loginName: encodeURIComponent(user.nickname),
+      gender: user.sex === 1  ? 'MALE' : user.sex === 2 ? 'FEMALE' : 'SECRET',
+      avatar: user.headimgurl || config.userHeadDefaultImg,
+      type: 'WEIXIN_PUBLIC_ACCOUNT'
     }
   });
 };

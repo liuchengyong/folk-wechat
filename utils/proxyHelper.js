@@ -15,8 +15,9 @@ exports.proxyGetCoupon = (user, pid, mobile) => {
 
 exports.proxyPostUserInfo = (user) => {
   return new Promise((resolve, reject) => {
-    request(urlHelper.createSocialUrl(user), (err, response, body) => {
-      response.statusCode == '200' ? resolve(JSON.parse(body)) : reject('cannot post user info');
+    let res = request(urlHelper.createSocialUrl(user), (err, response, body) => {
+      response.statusCode == '200' ? resolve({resilts:JSON.parse(body),user:user}) : reject('cannot post user info');
     });
+    // console.log(res);
   });
 };
