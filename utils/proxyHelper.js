@@ -13,10 +13,18 @@ exports.proxyGetCoupon = (user, pid, mobile) => {
   });
 };
 
-exports.proxyPostUserInfo = (user) => {
+exports.proxyPostUserInfo = (user,deviceId) => {
   return new Promise((resolve, reject) => {
-    let res = request(urlHelper.createSocialUrl(user), (err, response, body) => {
+    let res = request(urlHelper.createSocialUrl(user,deviceId), (err, response, body) => {
       response.statusCode == '200' ? resolve({resilts:JSON.parse(body),user:user}) : reject({msg:'cannot post user info'});
     });
   });
 };
+
+exports.getDeviceId = (req) => {
+  let ip = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+  return JSON.stringify({'userAgent':req.headers['user-agent'],Ip:ip});
+}

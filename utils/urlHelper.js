@@ -24,11 +24,11 @@ exports.createCouponUrl = (user, pid, mobile) => {
   });
 };
 
-exports.createSocialUrl = (user) => {
+exports.createSocialUrl = (user,deviceId) => {
   return createUrl({
     url: `${config.apiUrl}${config.socialAPI}`,
     headers:{
-      deviceId:'web123123123',
+      deviceId: deviceId,
       osType:'WEB',
       code:25
     },

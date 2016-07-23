@@ -101,9 +101,10 @@ app.post('/api/wechat/base',URLENCODED,(req,res) => {
   }else if(req.query.code){ //获取了微信页面的code
     wechatHelper.promiseGetAccessToken(req.query.code)
     .then(data => wechatHelper.promisePostUserInfo(data.openid))
-    .then(data => proxyHelper.proxyPostUserInfo(data))
+    .then(data => proxyHelper.proxyPostUserInfo(data,proxyHelper.getDeviceId(req)))
     .then(data =>{
       req.session.user = data.user;
+      req.session.user.deviceId = proxyHelper.getDeviceId(req);
       res.json(data.user);
     })
     .catch(err => {
