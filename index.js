@@ -104,7 +104,6 @@ app.post('/api/wechat/base',URLENCODED,(req,res) => {
     .then(data => proxyHelper.proxyPostUserInfo(data,proxyHelper.getDeviceId(req)))
     .then(data =>{
       req.session.user = data.user;
-      req.session.user.deviceId = proxyHelper.getDeviceId(req);
       res.json(data.user);
     })
     .catch(err => {
